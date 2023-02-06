@@ -1,21 +1,21 @@
 /// <reference types="nativewind/types" />
+// uils
 import { StatusBar } from "expo-status-bar";
+import { View } from "react-native";
+import { Provider as PaperProvider } from "react-native-paper";
+
+// hooks
+import { AppContextProvider } from "./context";
+// coponents
 import Header from "./components/header";
 import Content from "./components/content";
-import { View, Image, TextInput } from "react-native";
-import { Provider as PaperProvider } from "react-native-paper";
-import { Text, Button, Card } from "react-native-paper";
-import { AppContextProvider } from "./context";
-import { useApp } from "./context";
 
 export default function App() {
-  const { note, setNote } = useApp();
-
   return (
     <AppContextProvider>
       <PaperProvider>
         <StatusBar style='light' />
-        <View className='flex-1 items-center min-h-screen bg-black'>
+        <View className='flex-1 items-center bg-black'>
           <Header />
           <Content />
         </View>

@@ -1,20 +1,15 @@
-import React, { Dispatch, createContext, useState, useContext } from "react";
+import React, { Dispatch, createContext, useContext } from "react";
+import { initialT } from "./types/types";
 import { useStorage } from "./hooks/useStorage";
-// Plese forgive me I use "any" types I am just rushing to finish building this app in a very short time! I will fix this very soon
-export const AppContext = createContext<{
-  note: { id: string; name: string }[] | [];
-  setNote: any;
-  handleAddNote: any;
-  handleEdit: any;
-  handleDelete: any;
-  loading: boolean;
-}>({
+
+export const AppContext = createContext<initialT>({
   note: [],
   setNote: () => {},
   handleAddNote: () => {},
   handleDelete: () => {},
-  handleEdit: (note: any[], id: string, name: string) => {},
+  handleEdit: () => {},
   loading: true,
+  error: null,
 });
 
 export const AppContextProvider = ({
@@ -22,8 +17,15 @@ export const AppContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const { note, setNote, handleAddNote, handleEdit, handleDelete, loading } =
-    useStorage<string>("note", []);
+  const {
+    note,
+    setNote,
+    handleAddNote,
+    handleEdit,
+    handleDelete,
+    loading,
+    error,
+  } = useStorage("note", []);
 
   return (
     <AppContext.Provider
@@ -34,6 +36,7 @@ export const AppContextProvider = ({
         handleEdit,
         handleDelete,
         loading,
+        error,
       }}
     >
       {children}
